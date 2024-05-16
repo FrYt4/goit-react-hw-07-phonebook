@@ -17,12 +17,15 @@ export const App = () => {
         number: '',
     };
 
-    const [userData, setUserData] = useState(() => {
+     const [userData, setUserData] = useState(() => {
         const savedUserData = localStorage.getItem('userData');
-        return savedUserData ? JSON.parse(savedUserData) : initialState;
+        const parsedData = savedUserData ? JSON.parse(savedUserData) : initialState;
+        console.log('Loaded from localStorage:', parsedData);
+        return parsedData;
     });
 
     useEffect(() => {
+     console.log('Saving to localStorage:', userData);
         localStorage.setItem('userData', JSON.stringify(userData));
     }, [userData])
 
