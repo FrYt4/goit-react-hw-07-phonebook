@@ -1,7 +1,7 @@
 import { TextInput } from "./textinput";
 import { Contacts } from "./contacts";
 import { Filter } from "./filter";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { nanoid } from "nanoid";
 
 export const App = () => {
@@ -17,7 +17,14 @@ export const App = () => {
         number: '',
     };
 
-    const [userData, setUserData] = useState(initialState);
+    const [userData, setUserData] = useState(() => {
+        const savedUserData = localStorage.getItem('userData');
+        return savedUserData ? JSON.parse(savedUserData) : initialState;
+    });
+
+    useEffect(() => {
+        localStorage.setItem('userData', JSON.stringify(userData));
+    }, [userData])
 
     const onChange = event => {
         const { name, value } = event.target;
