@@ -1,7 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'; 
+import { useDispatch } from 'react-redux';
+import { setFilter } from '../redux/filterSlice';
 
-export const Filter = ({ onChange }) => {
+
+export const Filter = () => {
+    const dispach = useDispatch();
+
+    const onChange = (event) => {
+        dispach(setFilter(event.target.value));
+    };
+
     return (
         <input
             type="text"
